@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="ja">
 <html>
   <head>
     <title>SpaceExploration</title>
@@ -9,7 +10,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="<%= controller.controller_name %>">
     <%= yield %>
   </body>
 </html>

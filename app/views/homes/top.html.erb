@@ -1,20 +1,13 @@
-<%#= image_tag "milky-way.jpg", class: "image-top" %>
 <body>
   <div class="container">
     <div class="header">
       <h1 class="title">Space Exploration</h1>
     </div>
-    <div class="body" id="body"></div>
+    <div class="body" id="body">
+      <%= image_tag "milky-way.jpg", class: "image-top" %>
+    </div>
     <div class="footer">
-      <div class="select">
-        <label for="interval">流れ星の頻度</label>
-        <select id="interval" >
-          <option value="3">3秒に1個</option>
-          <option value="1">1秒に1個</option>
-          <option value="0.5">0.5秒に1個</option>
-        </select>
-      </div>
+      <%= link_to "宇宙探索開始", home_path, class: "btn-sf-like"%>
     </div>
   </div>
 </body>
-<!--画像に載っけて、流れ星の設定を消す。代わりにアプリのリンクを貼る-->

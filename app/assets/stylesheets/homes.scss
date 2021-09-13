@@ -1,3 +1,191 @@
 // Place all the styles related to the homes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// 流れ星
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 64px;
+  padding: 16px 0;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.body {
+  height: 100vh;
+  width: 100vw;
+}
+
+.image-top {
+  width : 100vw ;
+}
+
+.star-position {
+  position: fixed;
+  left: 200px;
+  top: 200px;
+  height: 100px;
+  width: 100px;
+  transform: rotateZ(45deg);
+}
+
+.star {
+  height: 0;
+  width: 2px;
+  background: linear-gradient(transparent, rgb(255, 255, 255));
+  animation-name: shooting;
+  animation-duration: 0.8s;
+  animation-timing-function: linear;
+}
+/*opacity(透明度)で消える動きを再現*/
+@keyframes shooting {
+  0% {
+    height: 0;
+    opacity: 50%;
+  }
+
+  50% {
+    height: 60px;
+    opacity: 100%;
+  }
+
+  100% {
+    height: 80px;
+    opacity: 0;
+  }
+}
+
+.footer {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  justify-content: center;
+  width: 100vw;
+}
+.btn-sf-like {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  text-decoration: none;
+  color: #FFF;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.73);
+  padding: 0.3em 0.5em;
+  background: #00bcd4;
+  border-top: solid 3px #00a3d4;
+  border-bottom: solid 3px #00a3d4;
+  transition: .4s;
+}
+
+.btn-sf-like:hover {
+  text-shadow: -6px 0px 15px rgba(255, 255, 240, 0.83),
+               6px 0px 15px rgba(255, 255, 240, 0.83);
+}
+
+// indexページ
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1 {
+  text-align: center;
+  margin: 50px 0;
+}
+.box {
+  height: 300px;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto 50px;
+  background-color: #eee;
+}
+/* ---------------------------- */
+/* ---- ハンバーガーアイコン ---- */
+/* ---------------------------- */
+#hm-icon {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 10;
+}
+.menu-trigger,
+.menu-trigger span {
+  display: inline-block;
+  transition: all .4s;
+  box-sizing: border-box;
+}
+.menu-trigger {
+  position: relative;
+  width: 50px;
+  height: 44px;
+}
+.menu-trigger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #000;
+  border-radius: 4px;
+}
+.menu-trigger span:nth-child(1) {
+  top: 0;
+}
+.menu-trigger span:nth-child(2) {
+  top: 20px;
+}
+.menu-trigger span:nth-child(3) {
+  bottom: 0;
+}
+.menu-trigger.active span:nth-child(1) {
+  -webkit-transform: translateY(20px) rotate(-45deg);
+  transform: translateY(20px) rotate(-45deg);
+  background-color: #fff;
+}
+.menu-trigger.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-trigger.active span:nth-child(3) {
+  -webkit-transform: translateY(-20px) rotate(45deg);
+  transform: translateY(-20px) rotate(45deg);
+  background-color: #fff;
+}
+/* ------------------------ */
+/* ------ spメニュー ------ */
+/* ------------------------ */
+#sp-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  color: #fff;
+  width: 100%;
+  min-height: 100%;
+  display: none;
+  z-index: 9;
+}
+#sp-menu li {
+  text-align: center;
+  margin-bottom: 30px;
+}
+#sp-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}

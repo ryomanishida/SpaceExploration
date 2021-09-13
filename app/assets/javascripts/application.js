@@ -10,44 +10,52 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require_tree .
-var starId = 0;
+
+// gemのturbolinks（ロードを早くするもの）が邪魔してjsをリロードしないと使えない。
+// document.addEventListener("turbolinks:load")を入れることによって、turbolinksを無効化する。
+ document.addEventListener("turbolinks:load",function() {
+// ランダムな場所に流す
+let starId = 0;
 
 function getRadomNumber (min, max) {
   return Math.floor(Math.random() * (max + 1 - min)) + min;
 };
 
 function getStarId() {
-  var current = starId;
+  let current = starId;
   starId += 1;
   return current;
 };
 
+// 流れ星工場
 function addShootingStar() {
-  var bodyElement = document.getElementById('body');
+  let bodyElement = document.getElementById('body');
   if (!bodyElement) return;
 
-  var targetId = `star-${getStarId()}`;
+  let targetId = `star-${getStarId()}`;
 
   // 追加するElementを作成
-  var element = document.createElement('div');
+  let element = document.createElement('div');
   element.id = targetId;
   element.className = 'star-position';
   element.innerHTML = '<div class="star" />';
 
   // 角度を計算
-  var degree = getRadomNumber(-90, 90);
+  let degree = getRadomNumber(-90, 90);
   element.style.transform = `rotateZ(${degree}deg)`;
 
   // 表示位置の計算。中心から放射状に流れるように、位置は角度を元に計算する
-  var radius = getRadomNumber(50, document.body.clientWidth / 4);
-  var radian = degree * (Math.PI / 180);
-  var vertical = radius * Math.cos(radian);
-  var horizonal = radius * Math.sin(radian);
-  var center = document.body.clientWidth / 2;
+  let radius = getRadomNumber(50, document.body.clientWidth / 4);
+  let radian = degree * (Math.PI / 180);
+  let vertical = radius * Math.cos(radian);
+  let horizonal = radius * Math.sin(radian);
+  let center = document.body.clientWidth / 2;
   element.style.left = `${center - horizonal}px`;
   element.style.top = `${vertical + 100}px`;
 
@@ -56,7 +64,7 @@ function addShootingStar() {
 
   // １秒後に追加したElementを削除する
   setTimeout(() => {
-    var target = document.getElementById(targetId);
+    let target = document.getElementById(targetId);
     if (target) {
       target.remove();
     }
@@ -65,16 +73,42 @@ function addShootingStar() {
 
 
 // インターバル処理を設定
-var intervalId = setInterval(addShootingStar, 5 * 1000);
+let intervalId = setInterval(addShootingStar, 5 * 1000);
 
 function onChange(e) {
   if(intervalId) {
     clearInterval(intervalId);
   }
-  // 指定された秒数でインターバル処理を再設定
-  intervalId = setInterval(addShootingStar, e.srcElement.value * 1000);
 }
-var select = document.getElementById('interval');
-select.addEventListener('change', onChange);
 
-addShootingStar();
+// ハンバーガーメニュー
+$(function() {
+  $('.menu-trigger').on('click', function(event) {
+    $(this).toggleClass('active');
+    $('#sp-menu').fadeToggle();
+    event.preventDefault();
+  });
+});
+
+// スライドショー
+$(document).ready(function () {
+  $("#theTarget").skippr({
+    // スライドショーの変化 ("fade" or "slide")
+    transition : 'slide',
+    // 変化に係る時間(ミリ秒)
+    speed : 1700,
+    // easingの種類
+    easing : 'easeOutQuart',
+    // ナビゲーションの形("block" or "bubble")
+    navType : 'bubble',
+    // 子要素の種類('div' or 'img')
+    childrenElementType : 'div',
+    // ナビゲーション矢印の表示(trueで表示)
+    arrows : true,
+    // キーボードの矢印キーによるスライド送りの設定(trueで有効)
+    keyboardOnAlways : true,
+    // 一枚目のスライド表示時に戻る矢印
+    hidePrevious : true
+  });
+});
+})
