@@ -1,2 +1,0 @@
-class SolarSystemsController < ApplicationController
-end

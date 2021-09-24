@@ -111,4 +111,11 @@ $(document).ready(function () {
     hidePrevious : true
   });
 });
+$(function(){
+    setInterval(function(){
+        $('.voyager').fadeOut(1400, function(){$(this).fadeIn(700)});
+    }, 3000);
+});
+
+
 })
