@@ -117,5 +117,82 @@ $(function(){
     }, 3000);
 });
 
+// クイズ
+// 文言の定義
+const quiz = [
+  // １問目
+  {
+    question: "彗星は何からできている？",
+    choices: [
+      "かたい岩石",
+      "純粋が凍ったもの",
+      "惑星になりそこねたガスの集まり",
+      "氷と塵（ちり）が混じった汚れた雪玉"
+    ],
+    answer: "氷と塵（ちり）が混じった汚れた雪玉"
+  },// 2問目
+  {
+    question: "天王星てんのうせいにしかないふしぎな現象はどれ？",
+    choices: [
+      "横になって自転している",
+      "他の惑星と逆に公転している",
+      "自転していない"
+    ],
+    answer: "横になって自転している"
+  },// 3問目
+  {
+    question: "月は年々地球に近づいている？離れている？",
+    choices: [
+      "近づいている",
+      "離れている",
+      "変わらない"
+    ],
+    answer: "離れている"
+  }
+];
+const quizLength = quiz.length;
+let quizIndex = 0;
+
+const $button = document.getElementsByTagName("button");
+const buttonLength = $button.length;
+
+// クイズの問題文、選択肢を定義
+const setQuiz = () => {
+  document.getElementById("js-question").textContent = quiz[quizIndex].question;
+  let buttonIndex = 0;
+  while(buttonIndex < buttonLength){
+    $button[buttonIndex].textContent = quiz[quizIndex].choices[buttonIndex];
+    buttonIndex++;
+  }
+}
+setQuiz();
+let score = 0;
+// ジャッジ
+const clickHandler = (e) => {
+  if(quiz[quizIndex].answer === e.target.textContent){
+    window.alert("正解");
+    score++;
+  }else{
+    window.alert("残念");
+  }
+
+  quizIndex++;
+  if(quizIndex < quizLength){
+    // 問題があれば
+    setQuiz();
+  }else{
+    // 問題がなくなれば
+    window.alert("お疲れ様でした!あなたの正解数は" + score + "/" + quizLength)
+  }
+}
+
+// ボタンをクリックした時に実行
+let handlerIndex = 0;
+while (handlerIndex < buttonLength){
+  $button[handlerIndex].addEventListener('click',(e) => {
+    clickHandler(e);
+  });
+  handlerIndex ++;
+}
 
 })
